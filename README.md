@@ -30,8 +30,8 @@ Users should be able to:
 
 ### Links
 
--  Solution URL: [Add solution URL here](https://your-solution-url.com)
--  Live Site URL: [Add live site URL here](https://your-live-site-url.com)
+-  Solution URL: [GitHub Repository](https://github.com/AJ-Tan/7.-Frontend-Mentor---Testimonial-Grid-HTML-SASS-)
+-  Live Site URL: [GitHub Pages](https://aj-tan.github.io/7.-Frontend-Mentor---Testimonial-Grid-HTML-SASS-/)
 
 ## My process
 
