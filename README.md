@@ -80,7 +80,7 @@ Users should be able to:
    opacity: 0;
    transition: transform 0.2s ease-in-out;
    animation: fade-in--forward 0.5s ease-in-out forwards, offset-left-to-origin
-         0.5s easi-in-out;
+         0.5s ease-in-out;
 }
 
 .card:hover {
