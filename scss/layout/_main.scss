@@ -10,7 +10,7 @@ $numberOfCards: 5;
    width: fit-content;
    min-width: 27.69rem;
 
-   //Adding animation delay in sequence
+   //Adding grid area and animation delay in sequence
    @for $i from 1 to $numberOfCards + 1 {
       & > [class|="card"]:nth-child(#{$i}) {
          animation-delay: #{($i - 1) * 0.1}s;
