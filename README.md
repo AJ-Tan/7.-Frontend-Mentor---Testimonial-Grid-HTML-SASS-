@@ -161,9 +161,11 @@ $cardVariants: (
 
 /* creates card variants depending on the number keys in $cardVariants! */
 .card {
-   @each $key, $variant in $cardVariants {
+   ... @each $key,
+   $variant in $cardVariants {
       //card--blue, card--red, card--green
       &--#{$key} {
+         @extend .card; //to carry over .card properties to variant
          background-color: var(map-get($variant, "bgColor"));
          color: var(map-get($variant, "textColor"));
       }
