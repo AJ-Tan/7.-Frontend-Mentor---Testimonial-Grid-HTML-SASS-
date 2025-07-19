@@ -57,7 +57,7 @@ Users should be able to:
    animation: fade-in--forward 0.5s ease-in-out forwards;
 }
 
-/* This will not work, due to transform propert is included in keyframe with fill mode forwards */
+/* This will not work, due to transform property is included in keyframe with fill mode forwards */
 .card:hover {
    transform: scale(1.05);
 }
