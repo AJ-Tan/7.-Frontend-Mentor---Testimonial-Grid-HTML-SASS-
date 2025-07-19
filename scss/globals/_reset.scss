@@ -1,0 +1,27 @@
+/* Reset some default browser styles */
+*,
+*::before,
+*::after {
+   box-sizing: border-box;
+   margin: 0;
+   padding: 0;
+}
+
+html {
+   font-size: 0.8125rem; //13px
+}
+
+/* Set core body defaults */
+body {
+   min-height: 100vh;
+   font-family: "Barlow Semi Condensed", Arial, Helvetica, sans-serif;
+
+   background-color: var(--color-bg);
+}
+
+/* Make images easier to work with */
+img,
+picture {
+   max-width: 100%;
+   display: block;
+}

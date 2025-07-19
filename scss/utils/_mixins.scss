@@ -1,0 +1,30 @@
+$breakpointList: (
+   "all": 0em,
+   "tablet": 48em,
+   "desktop": 64em,
+);
+
+@mixin breakpoint($size) {
+   @media screen and (min-width: map-get($breakpointList, $size)) {
+      @content;
+   }
+}
+
+@mixin quotation-bg($media-size: "desktop") {
+   @include breakpoint($media-size) {
+      &::before {
+         content: "";
+
+         position: absolute;
+         right: 0;
+
+         width: 8rem;
+         height: 7.846rem;
+
+         margin: var(--spacing-lg-2);
+
+         background-image: url(../../images/bg-pattern-quotation.svg);
+         background-size: contain;
+      }
+   }
+}

@@ -1,0 +1,162 @@
+@use "../utils/" as u;
+
+/* (Note to self for future me)
+   Can add more card variants here
+   To use card variant just add to the html class [card + "--${key}"]
+   example 1. card--purple 2. card--grey 3. card--dark-blue and etc
+   If with quote bg, add "--quote"
+   example: 1. card--quote 2. card--purple--quote and etc
+*/
+
+/* (Note to self for future me)
+   Used this type of implementation than directly specifying the color in object variable
+   so that it will be easy to implement light and dark theme when needed/wanted.
+   It does increase an extra layer of abstraction, but I believe its worth it in the long run.
+*/
+
+//See globals/variable for the list of colors.
+$cardVariants: (
+   "purple": (
+      //card bg color
+      "backgroundColor": "--color-primary-3",
+      //color for Name and Title
+      "nameAndTitleColor": "--color-text-0",
+      //color for User Status and Paragraph
+      "statusAndParagraphColor": "--color-primary-1",
+      //color for border on the User Avatar
+      "cardImageBorderColor": "--color-primary-2",
+      //at what size bg quote will appear, only if you add --quote to card class
+      "withBackgroundQuoteAtSize": "tablet",
+   ),
+   "grey": (
+      "backgroundColor": "--color-surface-2",
+      "nameAndTitleColor": "--color-text-0",
+      "statusAndParagraphColor": "--color-text-3",
+      "cardImageBorderColor": "",
+      "withBackgroundQuoteAtSize": "tablet",
+   ),
+   "dark-blue": (
+      "backgroundColor": "--color-surface-3",
+      "nameAndTitleColor": "--color-text-3",
+      "statusAndParagraphColor": "--color-text-3",
+      "cardImageBorderColor": "--color-primary-2",
+      "withBackgroundQuoteAtSize": "tablet",
+   ),
+   //Added new set, can apply this variant by simply adding "--charcoal-blue" to the card class
+   "charcoal-blue":
+      (
+         "backgroundColor": "--color-surface-4",
+         "nameAndTitleColor": "--color-text-4",
+         "statusAndParagraphColor": "--color-text-5",
+         "cardImageBorderColor": "--color-primary-2",
+         "withBackgroundQuoteAtSize": "tablet",
+      ),
+);
+
+.card {
+   position: relative;
+
+   display: grid;
+   gap: var(--spacing-md-1);
+
+   border-radius: 0.5rem;
+   max-width: 23.08rem;
+   padding: var(--spacing-lg-2);
+
+   background-color: var(--color-surface-1);
+   box-shadow: 35px 50px 20px 0px var(--color-border-1);
+
+   transition: transform 0.15s ease-in-out;
+   animation: fade-in 0.5s ease-in-out forwards,
+      offset-left-to-origin 0.5s ease-in-out;
+   opacity: 0;
+
+   &:hover {
+      transform: translateX(0) scale(1.05);
+   }
+
+   &__user,
+   &__title,
+   &__paragraph {
+      z-index: 2;
+   }
+
+   &__user-name,
+   &__title {
+      color: var(--color-text-1);
+   }
+
+   &__user-status,
+   &__paragraph {
+      color: var(--color-text-2);
+   }
+
+   &__user {
+      display: flex;
+      align-items: center;
+      gap: var(--spacing-md-1);
+
+      & p {
+         line-height: 1.3;
+      }
+
+      &-image {
+         border: 2px solid var(--color-border-1);
+         border-radius: 100%;
+         height: 2.5rem;
+      }
+
+      &-status {
+         font-size: 0.9rem;
+      }
+   }
+
+   &__paragraph {
+      font-weight: 500;
+   }
+
+   /* For Learning Purposes (Note to self for future me)
+   -Adds quote to card by simply add --quote in html class
+   -example card--quote (it will not look good, but it will add quote bg)
+   -If with card variant (see line 154 - 159 for this implementation)
+   -Example 1. card--purple--quote
+            2. card--grey--quote */
+   &--quote {
+      @extend .card;
+      /* Default parameter is "desktop" which applies to desktop size only.
+         You can specify at which media it will apply by adding a value in parameter.
+         See utils/mixin for breakpoint list. */
+      @include u.quotation-bg;
+   }
+
+   @each $key, $variant in $cardVariants {
+      &--#{$key} {
+         @extend .card;
+
+         background-color: var(#{map-get($variant, "backgroundColor")});
+
+         .card__user-name,
+         .card__title {
+            color: var(#{map-get($variant, "nameAndTitleColor")});
+         }
+
+         .card__user-status,
+         .card__paragraph {
+            color: var(#{map-get($variant, "statusAndParagraphColor")});
+         }
+
+         @if #{map-get($variant, "cardImageBorderColor")} != "" {
+            .card__user-image {
+               border-color: var(#{map-get($variant, "cardImageBorderColor")});
+            }
+         }
+
+         &--quote {
+            @extend .card--#{$key};
+            @include u.quotation-bg(
+               map-get($variant, "withBackgroundQuoteAtSize")
+            );
+         }
+      }
+   }
+}
