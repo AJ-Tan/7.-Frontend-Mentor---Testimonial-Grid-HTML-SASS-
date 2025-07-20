@@ -1,5 +1,11 @@
 $numberOfCards: 5;
 
+main {
+   display: grid;
+   place-content: center;
+   min-height: 95vh;
+}
+
 .card-section {
    display: grid;
 
